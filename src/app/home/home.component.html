@@ -1,0 +1,73 @@
+<div class="container mt-4">
+  <h2>Dodawanie, Edytowanie i Usuwanie Zleceń</h2>
+
+  <form [formGroup]="zlecenieForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="zlecenie_name">Nazwa Zlecenia:</label>
+      <select class="form-control" formControlName="zlecenie_name" required>
+        <option *ngFor="let nazwa of dostepneNazwyZlecen" [value]="nazwa">{{ nazwa }}</option>
+      </select>
+      <div *ngIf="zlecenieForm.get('zlecenie_name').hasError('required') && zlecenieForm.get('zlecenie_name').touched">
+        Pole jest wymagane.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="zlecenie_imei">IMEI:</label>
+      <select class="form-control" formControlName="zlecenie_imei" required [disabled]="!dostepneImei.length">
+      <option *ngFor="let imei of dostepneImei" [value]="imei">{{ imei }}</option>
+      </select>
+      <div *ngIf="zlecenieForm.get('zlecenie_imei').hasError('required') && zlecenieForm.get('zlecenie_imei').touched">
+        Pole jest wymagane.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="zlecenie_data_oddania">Data Oddania:</label>
+      <input type="date" class="form-control" formControlName="zlecenie_data_oddania" required>
+      <div *ngIf="zlecenieForm.get('zlecenie_data_oddania').hasError('required') && zlecenieForm.get('zlecenie_data_oddania').touched">
+        Pole jest wymagane.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="zlecenie_stan_zlecenia">Stan Zlecenia:</label>
+      <select class="form-control" formControlName="zlecenie_stan_zlecenia" required>
+        <option *ngFor="let nazwa of dostepneStany" [value]="nazwa">{{ nazwa }}</option>
+      </select>
+      <div *ngIf="zlecenieForm.get('zlecenie_stan_zlecenia').hasError('required') && zlecenieForm.get('zlecenie_stan_zlecenia').touched">
+        Pole jest wymagane.
+      </div>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" formControlName="zlecenie_czy_oplacone">
+      <label class="form-check-label" for="zlecenie_czy_oplacone">Czy opłacone</label>
+    </div>
+
+    <div>
+    <button type="submit" class="btn btn-primary mt-3">Dodaj Zlecenie</button>
+    </div>
+
+    <div class="form-group">
+      <button (click)="kierunekSortowania()" class="btn btn-secondary ml-2">Sortowanie po dacie</button>
+    </div>
+
+  </form>
+
+  <hr>
+
+  <h3>Lista Zleceń</h3>
+
+<ul class="list-group">
+  <li *ngFor="let zlecenie of zlecenia" class="list-group-item" [ngClass]="{ 'czydeadline': czyDeadline(zlecenie) }">
+    <strong>Nazwa Zlecenia:</strong> {{ zlecenie.zlecenie_name }}<br>
+    <strong>IMEI:</strong> {{ zlecenie.zlecenie_imei }}<br>
+    <strong>Data Oddania:</strong> {{ zlecenie.zlecenie_data_oddania | date }}<br>
+    <strong>Stan Zlecenia:</strong> {{ zlecenie.zlecenie_stan_zlecenia }}<br>
+    <strong>Czy opłacone:</strong> {{ zlecenie.zlecenie_czy_oplacone ? 'Tak' : 'Nie' }}<br>
+
+    <button (click)="onEdit(zlecenie)" class="btn btn-warning btn-sm">Edytuj</button>
+    <button (click)="onDelete(zlecenie)" class="btn btn-danger btn-sm float-right">Usuń</button>
+  </li>
+</ul>

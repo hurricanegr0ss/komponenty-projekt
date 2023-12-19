@@ -1,0 +1,117 @@
+<div class="container mt-4">
+  <h2>Dodawanie, Edytowanie i Usuwanie Telefonów</h2>
+
+  <form [formGroup]="telefonForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="producent">Producent:</label>
+      <input type="text" class="form-control" formControlName="producent" required>
+      <div *ngIf="telefonForm.get('producent').hasError('required') && telefonForm.get('producent').touched">
+        Pole jest wymagane.
+      </div>
+      <div *ngIf="telefonForm.get('producent').hasError('minlength') && telefonForm.get('producent').invalid">
+        Producent musi mieć co najmniej 2 litery.
+      </div>
+      <div *ngIf="telefonForm.get('producent').hasError('pattern') && telefonForm.get('producent').invalid">
+        Producent musi zaczynać się z dużej litery i zawierać tylko litery.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="model">Model:</label>
+      <input type="text" class="form-control" formControlName="model" required>
+      <div *ngIf="telefonForm.get('model').hasError('required') && telefonForm.get('model').touched">
+        Pole jest wymagane.
+      </div>
+      <div *ngIf="telefonForm.get('model').hasError('minlength') && telefonForm.get('model').invalid">
+        Model musi mieć co najmniej 2 litery.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="rok_produkcji">Rok Produkcji:</label>
+      <input type="number" class="form-control" formControlName="rok_produkcji" required>
+      <div *ngIf="telefonForm.get('rok_produkcji').hasError('required') && telefonForm.get('rok_produkcji').touched">
+        Pole jest wymagane.
+      </div>
+      <div *ngIf="telefonForm.get('rok_produkcji').hasError('max') && telefonForm.get('rok_produkcji').invalid">
+        Rok produkcji nie może być przyszły.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="imei">IMEI:</label>
+      <input type="text" class="form-control" formControlName="imei" required>
+      <div *ngIf="telefonForm.get('imei').hasError('required') && telefonForm.get('imei').touched">
+        Pole jest wymagane.
+      </div>
+      <div *ngIf="telefonForm.get('imei').hasError('minlength') && telefonForm.get('imei').invalid">
+        Imei jest za krótki!
+      </div>
+      <div *ngIf="telefonForm.get('imei').hasError('maxlength') && telefonForm.get('imei').invalid">
+        Imei jest za długi!
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label for="system">System:</label>
+      <select class="form-control" formControlName="system" required>
+        <option *ngFor="let system of dostepneSystemy" [value]="system">{{ system }}</option>
+      </select>
+      <div *ngIf="telefonForm.get('system').hasError('required') && telefonForm.get('system').touched">
+        Pole jest wymagane.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="cale_ekranu">Cale Ekranu:</label>
+      <input type="number" class="form-control" formControlName="cale_ekranu" required>
+      <div *ngIf="telefonForm.get('cale_ekranu').hasError('required') && telefonForm.get('cale_ekranu').touched">
+        Pole jest wymagane.
+      </div>
+      <div *ngIf="telefonForm.get('cale_ekranu').hasError('min') && telefonForm.get('cale_ekranu').invalid">
+        Cale ekranu muszą być powyżej 0.
+      </div>
+      <div *ngIf="telefonForm.get('cale_ekranu').hasError('max') && telefonForm.get('cale_ekranu').invalid">
+        Cale ekranu muszą być poniżej 10.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="ram">RAM:</label>
+      <input type="number" class="form-control" formControlName="ram" required>
+      <div *ngIf="telefonForm.get('ram').hasError('required') && telefonForm.get('ram').touched">
+        Pole jest wymagane.
+      </div>
+      <div *ngIf="telefonForm.get('ram').hasError('min') && telefonForm.get('ram').invalid">
+        Ram musi być powyżej 0.
+      </div>
+      <div *ngIf="telefonForm.get('ram').hasError('max') && telefonForm.get('ram').invalid">
+        Ram musi być poniżej 999.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Dodaj Telefon</button>
+  </form>
+
+  <hr>
+
+  <h3>Lista Telefonów</h3>
+
+  <ul class="list-group">
+    <li *ngFor="let telefon of telefony" class="list-group-item" [appKolor]="telefon.rok_produkcji">
+      <strong>Producent:</strong> {{ telefon.producent }}<br>
+      <strong>Model:</strong> {{ telefon.model }}<br>
+      <strong>Rok Produkcji:</strong> {{ telefon.rok_produkcji }}<br>
+      <strong>IMEI:</strong> {{ telefon.imei }}<br>
+      <strong>System:</strong> {{ telefon.system }}<br>
+      <strong>Cale Ekranu:</strong> {{ telefon.cale_ekranu }} cali<br>
+      <strong>RAM:</strong> {{ telefon.ram }} GB<br>
+
+      <button (click)="onEdit(telefon)" class="btn btn-warning btn-sm">Edytuj</button>
+      <button (click)="onDelete(telefon)" class="btn btn-danger btn-sm float-right">Usuń</button>
+      <button [routerLink]="['/telefony', telefon.id]" class="btn btn-primary btn-sm float-right">Zobacz szczegóły</button>
+    </li>
+  </ul>
+</div>

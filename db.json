@@ -1,0 +1,62 @@
+{
+  "zlecenia": [
+    {
+      "zlecenie_name": "Nazwa2",
+      "zlecenie_imei": "802344923923423",
+      "zlecenie_data_oddania": "2023-12-21",
+      "zlecenie_stan_zlecenia": "Nieoddane",
+      "zlecenie_czy_oplacone": true,
+      "id": 1
+    },
+    {
+      "zlecenie_name": "Nazwa1",
+      "zlecenie_imei": "593289201929304",
+      "zlecenie_data_oddania": "2023-12-22",
+      "zlecenie_stan_zlecenia": "Oddane",
+      "zlecenie_czy_oplacone": true,
+      "id": 2
+    }
+  ],
+  "telefony": [
+    {
+      "producent": "Nokia",
+      "model": "3310",
+      "rok_produkcji": 2009,
+      "imei": "593289201929304",
+      "system": "System1",
+      "cale_ekranu": 5,
+      "ram": 1,
+      "id": 2
+    },
+    {
+      "producent": "Xiaomi",
+      "model": "Lite",
+      "rok_produkcji": 2022,
+      "imei": "802344923923423",
+      "system": "System3",
+      "cale_ekranu": 5,
+      "ram": 67,
+      "id": 3
+    },
+    {
+      "producent": "Nokia",
+      "model": "3000",
+      "rok_produkcji": 2014,
+      "imei": "123123131233122",
+      "system": "System3",
+      "cale_ekranu": 2,
+      "ram": 2,
+      "id": 4
+    },
+    {
+      "producent": "Apple",
+      "model": "Iphone 10",
+      "rok_produkcji": 2020,
+      "imei": "432498324829232",
+      "system": "System3",
+      "cale_ekranu": 1,
+      "ram": 11,
+      "id": 5
+    }
+  ]
+}
